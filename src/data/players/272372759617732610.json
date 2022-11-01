@@ -1,0 +1,35 @@
+{
+    "id": 272372759617732610,
+    "level": 1,
+    "experience": 100,
+    "health": {
+        "current": 100,
+        "max": 100
+    },
+    "hunger": {
+        "current": 100,
+        "max": 100
+    },
+    "damage": {
+        "min": 0,
+        "max": 0
+    },
+    "defense": {
+        "min": 0,
+        "max": 0
+    },
+    "inventory": {
+        "caranguejo": 1,
+        "piaba": 7,
+        "cartao": 5,
+        "cheque": 4,
+        "banana": 1,
+        "picaretadeferro": 1
+    },
+    "balance": 0.0,
+    "bank": {
+        "balance": 1686.0,
+        "max": 3500.0
+    },
+    "inBattle": false
+}
