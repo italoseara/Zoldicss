@@ -1,4 +1,4 @@
-from utils.classes.Item import Ore
+from utils.classes import Ore
 
 ORES = {
     "carvao": Ore(

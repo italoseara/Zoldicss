@@ -1,4 +1,4 @@
-from utils.classes.Item import Consumable
+from utils.classes import Consumable
 
 CONSUMABLES = {
     "abacaxi": Consumable(

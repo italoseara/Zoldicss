@@ -1,4 +1,4 @@
-from utils.classes.Item import Tool
+from utils.classes import Tool
 
 TOOLS = {
     "picaretadepedra": Tool(

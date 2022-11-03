@@ -6,7 +6,7 @@ from typing import Dict
 from pathlib import Path
 from dataclasses import dataclass, field
 
-from utils.classes.Player import Player
+from .Player import Player
 
 
 @dataclass

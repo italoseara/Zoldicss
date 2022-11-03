@@ -1,4 +1,4 @@
-from utils.classes.Item import Economy
+from utils.classes import Economy
 
 ECONOMY = {
     "banco": Economy(

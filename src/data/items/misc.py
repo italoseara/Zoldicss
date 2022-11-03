@@ -1,4 +1,4 @@
-from utils.classes.Item import Item
+from utils.classes import Item
 
 MISC = {
     "cipo": Item(

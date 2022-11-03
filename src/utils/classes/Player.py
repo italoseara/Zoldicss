@@ -7,7 +7,8 @@ import discord
 from dataclasses_json import dataclass_json
 
 from utils.messages import warning
-from utils.classes._helper import *
+
+from ._helper import *
 
 
 @dataclass

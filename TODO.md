@@ -1,6 +1,6 @@
 # TODO
 
-* [ ] Website to customize the bot
+* [ ] Site local para customizar o bot
 * [x] Comando `baltop`
 * [ ] Comando `coletar`
 * [ ] Comando `minerar`
@@ -8,6 +8,7 @@
 * [ ] Comando `caçar`
 * [ ] Comando `pescar`
 * [ ] Comando `blackjack`
+* [ ] Dano em ferramentas
 * [x] Comando `ajuda`
 * [x] Comando `shop`
 * [x] Comando `craftaveis`

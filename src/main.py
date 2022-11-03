@@ -6,9 +6,8 @@ from pathlib import Path
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from data.items import ITEMS
-from utils.classes import Player
-from utils.consts.emojis import EMOJIS
+from data.items import ITEMS, BLOCKS
+from utils.consts import EMOJIS
 
 
 load_dotenv()
@@ -47,6 +46,9 @@ class Bot(commands.Bot):
         for item in ITEMS.values():
             if item.emoji.startswith(":"):
                 item.emoji = EMOJIS[item.emoji[1:-1]]
+
+        for item in BLOCKS.values():
+            item.emoji = EMOJIS[item.emoji[1:-1]]
 
     def update_baltop(self) -> None:
         from utils.classes import db

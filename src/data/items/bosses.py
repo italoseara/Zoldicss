@@ -1,4 +1,4 @@
-from utils.classes.Item import Boss
+from utils.classes import Boss
 
 BOSSES = {
     "baleia": Boss(

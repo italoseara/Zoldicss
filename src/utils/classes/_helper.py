@@ -1,6 +1,17 @@
 from dataclasses import dataclass
 
 
+class MiningLevel:
+    ANY = 0
+    STONE_PICKAXE = 1
+    IRON_PICKAXE = 2
+    GOLD_PICKAXE = 3
+    RUBY_PICKAXE = 4
+    SAPHIRE_PICKAXE = 4
+    EMERALD_PICKAXE = 5
+    DIAMOND_PICKAXE = 6
+
+
 @dataclass
 class Stats:
     current: int = 100

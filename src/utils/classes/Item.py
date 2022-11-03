@@ -1,8 +1,10 @@
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, field
 
-from utils.consts.emojis import EMOJIS
-from utils.classes.Player import Player
+from utils.consts import EMOJIS
+
+from . import Player
+from ._helper import MiningLevel
 
 
 @dataclass
@@ -135,10 +137,11 @@ class Consumable(Item):
 @dataclass
 class Tool(Item):
     durability: float = 0.0
+    mining_level: int = MiningLevel.ANY
 
     def __str__(self) -> str:
         return f"{self.emoji} {self.name} ({self.durability})"
-    
+
     def _escription(self, amount: int = 1) -> str:
         attrs = [
             self.attr_formatter(

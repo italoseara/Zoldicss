@@ -4,6 +4,7 @@ from .economy import *
 from .misc import *
 from .ores import *
 from .tools import *
+from .blocks import *
 
 ITEMS = {
     **CONSUMABLES,
