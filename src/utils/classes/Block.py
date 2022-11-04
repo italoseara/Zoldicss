@@ -1,12 +1,14 @@
-from dataclasses import dataclass, field
+import discord
 from typing import List
+from dataclasses import dataclass, field
 
 from . import Ore, Tool, MiningLevel
 
+
 @dataclass
 class Block:
-    emoji: str
-    rarity: float # 0 to 1
+    emoji: discord.Emoji
+    chance: float  # 0 to 1
     drop: Ore = None
     mining_level: int = MiningLevel.ANY
     tags: List[str] = field(default_factory=list)

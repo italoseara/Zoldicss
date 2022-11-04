@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord.commands import Option
 
-from utils.views.PagesView import create_view
+from utils.views import PagesView
 from utils.classes import db, MutableInt
 from utils.messages import default_embed, warning
 
@@ -68,7 +68,9 @@ class Inventario(commands.Cog):
 
                 return embed
 
-            pages_view = create_view(page=page, pages=pages, page_embed=inventory_embed)
+            pages_view = PagesView.new(
+                page=page, pages=pages, page_embed=inventory_embed
+            )
 
             # Send the message
             await ctx.respond(embed=inventory_embed(page), view=pages_view)

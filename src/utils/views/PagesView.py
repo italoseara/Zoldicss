@@ -1,10 +1,11 @@
+from typing import Self, List, Any, Callable
+
 import discord
 from discord import ButtonStyle
 from discord.ui import View, Button, button
 
 
 class PagesView(View):
-
     def __init__(self, page, pages, page_embed) -> None:
         super().__init__()
 
@@ -17,7 +18,9 @@ class PagesView(View):
         style=ButtonStyle.grey,
         custom_id="previous",
     )
-    async def previous_page(self, button: Button, interaction: discord.Interaction) -> None:
+    async def previous_page(
+        self, button: Button, interaction: discord.Interaction
+    ) -> None:
         self.page -= 1
         self.children[0].disabled = self.page == 1
         self.children[1].disabled = self.page == len(self.pages)
@@ -37,18 +40,18 @@ class PagesView(View):
         self.children[1].disabled = self.page == len(self.pages)
 
         await interaction.response.edit_message(
-            embed=self.page_embed(self.page),
-            view=self
+            embed=self.page_embed(self.page), view=self
         )
 
     @button(emoji="❌", style=ButtonStyle.grey, custom_id="close")
     async def close(self, button: Button, interaction: discord.Interaction) -> None:
         await interaction.response.edit_message(view=None)
 
-def create_view(page, pages, page_embed) -> PagesView | None:
-    view = PagesView(page, pages, page_embed)
+    @classmethod
+    def new(cls, page: int, pages: List[List[Any]], page_embed: Callable) -> Self | None:
+        view = cls(page, pages, page_embed)
 
-    view.children[0].disabled = page == 1
-    view.children[1].disabled = page == len(pages)
+        view.children[0].disabled = page == 1
+        view.children[1].disabled = page == len(pages)
 
-    return view if pages else None
+        return view if pages else None

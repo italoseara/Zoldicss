@@ -1,4 +1,5 @@
 from utils.classes import Tool
+from utils.classes._helper import MiningLevel
 
 TOOLS = {
     "picaretadepedra": Tool(
@@ -8,6 +9,7 @@ TOOLS = {
         tags=["pickaxe"],
         buying=300.0,
         durability=100,
+        mining_level=MiningLevel.STONE_PICKAXE,
     ),
     "picaretadeferro": Tool(
         id="picaretadeferro",
@@ -20,7 +22,8 @@ TOOLS = {
             "ferro": 15,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.IRON_PICKAXE,
     ),
     "picaretadeouro": Tool(
         id="picaretadeouro",
@@ -33,7 +36,8 @@ TOOLS = {
             "ouro": 15,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.GOLD_PICKAXE,
     ),
     "picaretadesafira": Tool(
         id="picaretadesafira",
@@ -46,7 +50,8 @@ TOOLS = {
             "safira": 10,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.SAPPHIRE_PICKAXE,
     ),
     "picaretaderubi": Tool(
         id="picaretaderubi",
@@ -59,7 +64,8 @@ TOOLS = {
             "rubi": 10,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.RUBY_PICKAXE,
     ),
     "picaretadeesmeralda": Tool(
         id="picaretadeesmeralda",
@@ -72,7 +78,8 @@ TOOLS = {
             "esmeralda": 10,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.EMERALD_PICKAXE,
     ),
     "picaretadediamante": Tool(
         id="picaretadediamante",
@@ -85,6 +92,7 @@ TOOLS = {
             "diamante": 10,
             "graveto": 5,
             "cipo": 5,
-        }
+        },
+        mining_level=MiningLevel.DIAMOND_PICKAXE,
     ),
 }

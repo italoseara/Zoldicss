@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from discord.commands import Option
 
-from utils.views.PagesView import create_view
+from utils.views import PagesView
 from utils.classes import db, MutableInt
 from utils.messages import default_embed, warning
 
@@ -48,7 +48,7 @@ class Comercio(commands.Cog):
 
             return embed
 
-        pages_view = create_view(
+        pages_view = PagesView.new(
             page=page,
             pages=pages,
             page_embed=shop_embed,

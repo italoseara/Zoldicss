@@ -38,6 +38,7 @@ class Player:
 
     # Inventory
     inventory: Inventory = field(default_factory=Inventory)
+    equiped: str = None
 
     # Currency
     balance: float = 0.0
@@ -49,8 +50,16 @@ class Player:
     def user(self, ctx: discord.ApplicationContext) -> discord.User | None:
         return ctx.bot.get_user(self.id)
 
+    async def equip(self, tool: str) -> None:
+        from data.items import TOOLS
+
+        if tool not in TOOLS:
+            return
+
+        self.equiped = tool
+
     async def attack(self, target: Any) -> None:
-        # TODO:
+        # TODO
         pass
 
     async def hurt(

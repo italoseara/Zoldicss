@@ -26,6 +26,7 @@
         "banana": 1,
         "picaretadeferro": 1
     },
+    "equiped": "picaretadeferro",
     "balance": 0.0,
     "bank": {
         "balance": 1686.0,
