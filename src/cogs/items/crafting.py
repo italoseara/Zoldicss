@@ -56,6 +56,7 @@ class Crafting(commands.Cog):
             return embed
 
         pages_view = PagesView.new(
+            ctx=ctx,
             page=page,
             pages=pages,
             page_embed=craft_embed,

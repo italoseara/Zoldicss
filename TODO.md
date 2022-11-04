@@ -1,6 +1,6 @@
 # TODO
 
-* [ ] Colocar verificação de usuario quando clicar em botao em todas as funções
+* [x] Colocar verificação de usuario quando clicar em botao em todas as funções
 * [ ] Site local para customizar o bot
 * [ ] Equipar item
 * [x] Comando `baltop`

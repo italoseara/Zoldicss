@@ -52,11 +52,17 @@ class Level:
 
 
 class LevelMapView(View):
-    def __init__(self, level: Level, level_embed: Callable) -> None:
+    def __init__(
+        self, ctx: discord.ApplicationContext, level: Level, level_embed: Callable
+    ) -> None:
         super().__init__()
 
+        self.ctx = ctx
         self.level = level
         self.level_embed = level_embed
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        return interaction.user == self.ctx.author
 
     @button(
         emoji="⬅️",
@@ -117,8 +123,10 @@ class LevelMapView(View):
         await interaction.response.edit_message(view=None)
 
     @classmethod
-    def new(cls, level: Level, level_embed: Callable) -> Self | None:
-        return cls(level, level_embed) if level.player.tool else None
+    def new(
+        cls, ctx: discord.ApplicationContext, level: Level, level_embed: Callable
+    ) -> Self | None:
+        return cls(ctx, level, level_embed) if level.player.tool else None
 
     @staticmethod
     def create_map(blocks: Block, player: Player, width: int, height: int) -> Level:

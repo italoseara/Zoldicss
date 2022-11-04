@@ -69,7 +69,10 @@ class Inventario(commands.Cog):
                 return embed
 
             pages_view = PagesView.new(
-                page=page, pages=pages, page_embed=inventory_embed
+                ctx=ctx,
+                page=page,
+                pages=pages,
+                page_embed=inventory_embed,
             )
 
             # Send the message

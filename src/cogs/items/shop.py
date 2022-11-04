@@ -49,6 +49,7 @@ class Comercio(commands.Cog):
             return embed
 
         pages_view = PagesView.new(
+            ctx=ctx,
             page=page,
             pages=pages,
             page_embed=shop_embed,

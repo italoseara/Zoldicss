@@ -6,12 +6,22 @@ from discord.ui import View, Button, button
 
 
 class PagesView(View):
-    def __init__(self, page, pages, page_embed) -> None:
+    def __init__(
+        self,
+        ctx: discord.ApplicationContext,
+        page: int,
+        pages: List[List[Any]],
+        page_embed: Callable,
+    ) -> None:
         super().__init__()
 
+        self.ctx = ctx
         self.page = page
         self.pages = pages
         self.page_embed = page_embed
+
+    async def interaction_check(self, interaction: discord.Interaction) -> bool:
+        return interaction.user == self.ctx.author
 
     @button(
         emoji="⬅️",
@@ -48,8 +58,14 @@ class PagesView(View):
         await interaction.response.edit_message(view=None)
 
     @classmethod
-    def new(cls, page: int, pages: List[List[Any]], page_embed: Callable) -> Self | None:
-        view = cls(page, pages, page_embed)
+    def new(
+        cls,
+        ctx: discord.ApplicationContext,
+        page: int,
+        pages: List[List[Any]],
+        page_embed: Callable,
+    ) -> Self | None:
+        view = cls(ctx, page, pages, page_embed)
 
         view.children[0].disabled = page == 1
         view.children[1].disabled = page == len(pages)

@@ -38,7 +38,7 @@ class Minerar(commands.Cog):
                 )
                 return embed
             
-            view = LevelMapView.new(level, mining_embed)
+            view = LevelMapView.new(ctx, level, mining_embed)
 
             # Send the message
             await ctx.respond(embed=mining_embed(level), view=view)
