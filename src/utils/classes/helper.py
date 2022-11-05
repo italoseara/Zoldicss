@@ -13,6 +13,20 @@ class MiningLevel:
 
 
 @dataclass
+class Vector:
+    x: int
+    y: int
+
+    def inside(self, other: "Vector") -> bool:
+        return (
+            (self.x >= 0)
+            and (self.y >= 0)
+            and (self.x < other.x)
+            and (self.y < other.y)
+        )
+
+
+@dataclass
 class Stats:
     current: int = 100
     max: int = 100

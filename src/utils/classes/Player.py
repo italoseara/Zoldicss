@@ -8,7 +8,7 @@ from dataclasses_json import dataclass_json
 
 from utils.messages import warning
 
-from ._helper import *
+from .helper import *
 
 
 @dataclass
@@ -62,7 +62,7 @@ class Player:
         # TODO
         pass
 
-    async def hurt(
+    async def damage(
         self, ctx: discord.ApplicationContext, amount: int, by: Optional[Any] = None
     ) -> None:
         self.health.current -= amount

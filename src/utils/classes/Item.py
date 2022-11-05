@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from utils.consts import EMOJIS
 
 from . import Player
-from ._helper import MiningLevel
+from .helper import MiningLevel
 
 
 @dataclass

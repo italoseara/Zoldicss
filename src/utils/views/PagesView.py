@@ -55,7 +55,7 @@ class PagesView(View):
 
     @button(emoji="❌", style=ButtonStyle.grey, custom_id="close")
     async def close(self, button: Button, interaction: discord.Interaction) -> None:
-        await interaction.response.edit_message(view=None)
+        await interaction.response.edit_message(delete_after=0)
 
     @classmethod
     def new(

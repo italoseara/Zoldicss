@@ -8,7 +8,7 @@ from . import Ore, Tool, MiningLevel
 @dataclass
 class Block:
     emoji: discord.Emoji
-    chance: float  # 0 to 1
+    chance: float  # 0 to 100
     drop: Ore = None
     mining_level: int = MiningLevel.ANY
     tags: List[str] = field(default_factory=list)

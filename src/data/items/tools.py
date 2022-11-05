@@ -1,5 +1,4 @@
-from utils.classes import Tool
-from utils.classes._helper import MiningLevel
+from utils.classes import Tool, MiningLevel
 
 TOOLS = {
     "picaretadepedra": Tool(

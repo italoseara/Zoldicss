@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
+from discord.commands import Option, OptionChoice
 
-from data.items import BLOCKS, TOOLS
+from utils.consts import EMOJIS
+from data.items import BLOCKS, TOOLS, ITEMS
 
 from utils.classes import db
 from utils.messages import default_embed, warning
@@ -13,8 +15,20 @@ class Minerar(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(description="Template")
-    async def minerar(self, ctx: discord.ApplicationContext) -> None:
-        WIDTH, HEIGHT = 12, 14
+    async def minerar(
+        self,
+        ctx: discord.ApplicationContext,
+        mobile_support: Option(
+            bool,
+            name="suporte",
+            description="Suporte para celulares",
+            choices=[
+                OptionChoice(name="Sim", value=True),
+                OptionChoice(name="Não", value=False),
+            ],
+        ) = False,
+    ) -> None:
+        WIDTH, HEIGHT = (12, 13) if mobile_support else (13, 13)
         MINING_BLOCKS = [block for block in BLOCKS.values() if "mining" in block.tags]
 
         with db.modify(ctx.author.id) as player:
@@ -23,6 +37,7 @@ class Minerar(commands.Cog):
 
             if equiped_tool is None or "pickaxe" not in equiped_tool.tags:
                 await warning(ctx, "Você não tem uma picareta equipada!")
+                return
 
             level = LevelMapView.create_map(
                 blocks=MINING_BLOCKS, player=player, width=WIDTH, height=HEIGHT
@@ -36,8 +51,32 @@ class Minerar(commands.Cog):
                     title=f"⛏️ Mineração",
                     description=str(level),
                 )
+
+                # Add the player's stats
+                embed.add_field(
+                    name="**Status:**",
+                    value=(
+                        f"💰 **Saldo:** ${player.balance:.2f}\n"
+                        + f"❤️ **Vida:** {player.health}\n"
+                        + f"🍗 **Fome:** {player.hunger}\n"
+                        + f"{EMOJIS['xp']} **Experiência:** {player.experience} / {0}"
+                    ),
+                    inline=True,
+                )
+
+                # Add the player's collected items
+                embed.add_field(
+                    name="**Itens coletados:**",
+                    value="\n".join(
+                        f"{amount} {ITEMS[item]}"
+                        for item, amount in level.player.collected.items()
+                    )
+                    or "Nenhum",
+                    inline=True,
+                )
+
                 return embed
-            
+
             view = LevelMapView.new(ctx, level, mining_embed)
 
             # Send the message

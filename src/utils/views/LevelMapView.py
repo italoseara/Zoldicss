@@ -1,20 +1,20 @@
 import random
 from typing import Self, Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 import discord
 from discord import ButtonStyle
 from discord.ui import View, Button, button
 
 from data.items import TOOLS, BLOCKS
-from utils.classes import Block, Player, Tool
+from utils.classes import Block, Player, Tool, Inventory, Vector
 
 
 @dataclass
-class LevelPlayer:
-    x: int
-    y: int
+class LevelPlayer(Vector):
     tool: Tool
+    profile: Player
+    collected: Inventory = field(default_factory=Inventory)
 
 
 @dataclass
@@ -26,13 +26,15 @@ class Level:
     map_: list = None
 
     def move(self, x: int, y: int) -> None:
-        if (
-            (self.player.x + x >= self.width)
-            or (self.player.y + y >= self.height)
-            or (self.player.x + x < 0)
-            or (self.player.y + y < 0)
-        ):
+        new_pos = Vector(x=self.player.x + x, y=self.player.y + y)
+
+        if not new_pos.inside(Vector(x=self.width, y=self.height)):
             return
+
+        block = self.map_[new_pos.y][new_pos.x]
+        if block.drop:
+            self.player.collected.add(block.drop.id)
+            self.player.profile.inventory.add(block.drop.id)
 
         self.map_[self.player.y][self.player.x] = BLOCKS["background"]
         self.player.x += x
@@ -77,24 +79,24 @@ class LevelMapView(View):
         )
 
     @button(
-        emoji="⬆️",
-        style=ButtonStyle.grey,
-        custom_id="move__up",
-    )
-    async def move_up(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(0, -1)
-
-        await interaction.response.edit_message(
-            embed=self.level_embed(self.level), view=self
-        )
-
-    @button(
         emoji="⬇️",
         style=ButtonStyle.grey,
         custom_id="move__down",
     )
     async def move_down(self, button: Button, interaction: discord.Interaction) -> None:
         self.level.move(0, 1)
+
+        await interaction.response.edit_message(
+            embed=self.level_embed(self.level), view=self
+        )
+
+    @button(
+        emoji="⬆️",
+        style=ButtonStyle.grey,
+        custom_id="move__up",
+    )
+    async def move_up(self, button: Button, interaction: discord.Interaction) -> None:
+        self.level.move(0, -1)
 
         await interaction.response.edit_message(
             embed=self.level_embed(self.level), view=self
@@ -120,7 +122,7 @@ class LevelMapView(View):
         custom_id="close",
     )
     async def close(self, button: Button, interaction: discord.Interaction) -> None:
-        await interaction.response.edit_message(view=None)
+        await interaction.response.edit_message(delete_after=0)
 
     @classmethod
     def new(
@@ -138,6 +140,7 @@ class LevelMapView(View):
             x=random.randint(0, width - 1),
             y=random.randint(0, height - 1),
             tool=TOOLS[player.equiped],
+            profile=player,
         )
 
         # Generate a random map using the chance of each block
