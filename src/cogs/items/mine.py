@@ -22,10 +22,6 @@ class Minerar(commands.Cog):
             bool,
             name="suporte",
             description="Suporte para celulares",
-            choices=[
-                OptionChoice(name="Sim", value=True),
-                OptionChoice(name="Não", value=False),
-            ],
         ) = False,
     ) -> None:
         WIDTH, HEIGHT = (12, 13) if mobile_support else (13, 13)
@@ -36,7 +32,9 @@ class Minerar(commands.Cog):
             equiped_tool = TOOLS[player.equiped] if player.equiped else None
 
             if equiped_tool is None or "pickaxe" not in equiped_tool.tags:
-                await warning(ctx, "Você não tem uma picareta equipada!")
+                await warning(
+                    ctx, "Você não tem uma picareta equipada!", ephemeral=True
+                )
                 return
 
             level = LevelMapView.create_map(

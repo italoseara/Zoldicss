@@ -45,7 +45,7 @@ class Player:
     bank: Bank = field(default_factory=dict)
 
     # Booleans
-    inBattle: bool = False
+    in_battle: bool = False
 
     def user(self, ctx: discord.ApplicationContext) -> discord.User | None:
         return ctx.bot.get_user(self.id)
@@ -62,7 +62,7 @@ class Player:
         # TODO
         pass
 
-    async def damage(
+    async def hurt(
         self, ctx: discord.ApplicationContext, amount: int, by: Optional[Any] = None
     ) -> None:
         self.health.current -= amount

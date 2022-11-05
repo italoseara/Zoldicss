@@ -109,7 +109,7 @@ class TradeView(View):
 
         match option:
             case "menu__money":
-                if not interaction_author.profile.wallet:
+                if not interaction_author.profile.balance:
                     await warning(
                         ctx, "Você não possui dinheiro para negociar.", delete_after=5
                     )
@@ -119,7 +119,7 @@ class TradeView(View):
                     self.trade.bot,
                     ctx,
                     message="Selecione a quantidade de 💵 Dinheiro que você deseja oferecer.",
-                    max_value=int(interaction_author.profile.wallet),
+                    max_value=int(interaction_author.profile.balance),
                 )
 
                 await asyncio.wait(
@@ -473,11 +473,11 @@ class TradeView(View):
                 self.trade.author.profile.inventory.add(item, amount)
 
             # Exchange the money
-            self.trade.author.profile.wallet -= self.trade.author.money
-            self.trade.target.profile.wallet -= self.trade.target.money
+            self.trade.author.profile.balance -= self.trade.author.money
+            self.trade.target.profile.balance -= self.trade.target.money
 
-            self.trade.author.profile.wallet += self.trade.target.money
-            self.trade.target.profile.wallet += self.trade.author.money
+            self.trade.author.profile.balance += self.trade.target.money
+            self.trade.target.profile.balance += self.trade.author.money
 
             author_embed = default_embed(
                 self.trade.author.user,

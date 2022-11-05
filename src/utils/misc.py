@@ -4,11 +4,15 @@ from utils.consts.images import IMAGE_PATH, FONTS_PATH
 
 
 def num_emoji(n: int) -> str:
+    """Returns the emoji of the given number"""
+
     emojis = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"]
     return "".join(emojis[int(i)] for i in str(n))
 
 
-def xp_bar(percentage: float, level: int):
+def xp_bar(percentage: float, level: int) -> BytesIO:
+    """Returns the xp bar image"""
+
     # load the images
     xp_full = Image.open(IMAGE_PATH + "xp_bar_full.png")
     xp_empty = Image.open(IMAGE_PATH + "xp_bar_empty.png")
@@ -32,7 +36,9 @@ def xp_bar(percentage: float, level: int):
     return draw_number(new_image, str(level))
 
 
-def draw_number(image, number: int):
+def draw_number(image, number: int) -> BytesIO:
+    """Draws a number on the image of the xp bar"""
+
     # load the font
     font = ImageFont.truetype(FONTS_PATH + "minecraft_font.ttf", size=14)
 
@@ -54,3 +60,8 @@ def draw_number(image, number: int):
     image_binary.seek(0)
 
     return image_binary
+
+
+def xp_to_next_level(current_level: int) -> int:
+    """Returns the amount of xp needed to reach the next level"""
+    return 500 * (current_level**2) + 500 * current_level
