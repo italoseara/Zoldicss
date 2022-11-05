@@ -32,7 +32,7 @@ class Level:
             return
 
         block = self.map_[new_pos.y][new_pos.x]
-        if block.drop:
+        if block.drop and self.player.tool.mining_level >= block.mining_level:
             self.player.collected.add(block.drop.id)
             self.player.profile.inventory.add(block.drop.id)
 
@@ -67,33 +67,18 @@ class LevelMapView(View):
         return interaction.user == self.ctx.author
 
     @button(
-        emoji="⬅️",
+        label="\u200b",
         style=ButtonStyle.grey,
-        custom_id="move__left",
+        row=0,
     )
-    async def move_left(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(-1, 0)
-
-        await interaction.response.edit_message(
-            embed=self.level_embed(self.level), view=self
-        )
-
-    @button(
-        emoji="⬇️",
-        style=ButtonStyle.grey,
-        custom_id="move__down",
-    )
-    async def move_down(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(0, 1)
-
-        await interaction.response.edit_message(
-            embed=self.level_embed(self.level), view=self
-        )
+    async def blank1(self, button: Button, interaction: discord.Interaction) -> None:
+        await interaction.response.defer()
 
     @button(
         emoji="⬆️",
         style=ButtonStyle.grey,
         custom_id="move__up",
+        row=0,
     )
     async def move_up(self, button: Button, interaction: discord.Interaction) -> None:
         self.level.move(0, -1)
@@ -103,9 +88,40 @@ class LevelMapView(View):
         )
 
     @button(
+        label="\u200b",
+        style=ButtonStyle.grey,
+        row=0,
+    )
+    async def blank2(self, button: Button, interaction: discord.Interaction) -> None:
+        await interaction.response.defer()
+
+    @button(
+        emoji="⬅️",
+        style=ButtonStyle.grey,
+        custom_id="move__left",
+        row=1,
+    )
+    async def move_left(self, button: Button, interaction: discord.Interaction) -> None:
+        self.level.move(-1, 0)
+
+        await interaction.response.edit_message(
+            embed=self.level_embed(self.level), view=self
+        )
+
+    @button(
+        emoji="❌",
+        style=ButtonStyle.grey,
+        custom_id="close",
+        row=1,
+    )
+    async def close(self, button: Button, interaction: discord.Interaction) -> None:
+        await interaction.response.edit_message(delete_after=0)
+
+    @button(
         emoji="➡️",
         style=ButtonStyle.grey,
         custom_id="move__right",
+        row=1,
     )
     async def move_right(
         self, button: Button, interaction: discord.Interaction
@@ -117,12 +133,33 @@ class LevelMapView(View):
         )
 
     @button(
-        emoji="❌",
+        label="\u200b",
         style=ButtonStyle.grey,
-        custom_id="close",
+        row=2,
     )
-    async def close(self, button: Button, interaction: discord.Interaction) -> None:
-        await interaction.response.edit_message(delete_after=0)
+    async def blank3(self, button: Button, interaction: discord.Interaction) -> None:
+        await interaction.response.defer()
+
+    @button(
+        emoji="⬇️",
+        style=ButtonStyle.grey,
+        custom_id="move__down",
+        row=2,
+    )
+    async def move_down(self, button: Button, interaction: discord.Interaction) -> None:
+        self.level.move(0, 1)
+
+        await interaction.response.edit_message(
+            embed=self.level_embed(self.level), view=self
+        )
+
+    @button(
+        label="\u200b",
+        style=ButtonStyle.grey,
+        row=2,
+    )
+    async def blank4(self, button: Button, interaction: discord.Interaction) -> None:
+        await interaction.response.defer()
 
     @classmethod
     def new(

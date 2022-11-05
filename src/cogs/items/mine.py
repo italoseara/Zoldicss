@@ -47,7 +47,6 @@ class Minerar(commands.Cog):
             def mining_embed(level: Level) -> discord.Embed:
                 embed = default_embed(
                     ctx.author,
-                    width=34,
                     title=f"⛏️ Mineração",
                     description=str(level),
                 )

@@ -24,12 +24,14 @@
         "cartao": 5,
         "cheque": 4,
         "banana": 1,
-        "picaretadeferro": 1,
-        "carvao": 6,
-        "ouro": 2,
-        "diamante": 1
+        "picaretadediamante": 1,
+        "carvao": 10,
+        "ouro": 8,
+        "diamante": 1,
+        "esmeralda": 1,
+        "rubi": 1
     },
-    "equiped": "picaretadeferro",
+    "equiped": "picaretadediamante",
     "balance": 0.0,
     "bank": {
         "balance": 1686.0,
