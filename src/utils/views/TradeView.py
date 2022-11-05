@@ -11,7 +11,7 @@ from data.items import *
 from utils.classes.Player import Player
 from utils.messages import default_embed, select_amount, warning
 
-from utils.consts import EMOJIS
+from utils.constants import EMOJIS
 
 
 MENU_OPTIONS = [

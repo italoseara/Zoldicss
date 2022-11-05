@@ -31,13 +31,9 @@ class Equipar(commands.Cog):
                 await warning(ctx, "Você não possui este item!", ephemeral=True)
                 return
 
-            player.equiped = item_id
+            player._equiped = item_id
 
-            await warning(
-                ctx,
-                f"Você equipou {ITEMS[item_id]}",
-                ephemeral=True,
-            )
+            await warning(ctx, f"Você equipou {ITEMS[item_id]}")
 
 
 def setup(bot: commands.Bot) -> None:

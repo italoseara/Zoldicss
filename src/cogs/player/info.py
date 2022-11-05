@@ -6,7 +6,7 @@ from utils.misc import xp_bar
 from utils.classes import db
 from utils.messages import default_embed
 
-from utils.consts.emojis import EMOJIS
+from utils.constants.emojis import EMOJIS
 
 
 class Info(commands.Cog):

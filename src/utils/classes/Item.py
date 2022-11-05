@@ -1,10 +1,10 @@
 from typing import List, Optional, Dict, Any
 from dataclasses import dataclass, field
 
-from utils.consts import EMOJIS
+from utils.constants import EMOJIS
 
 from . import Player
-from .helper import MiningLevel
+from .constants import MiningLevel
 
 
 @dataclass

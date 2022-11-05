@@ -8,7 +8,7 @@ from dataclasses_json import dataclass_json
 
 from utils.messages import warning
 
-from .helper import *
+from .utility import *
 
 
 @dataclass
@@ -38,7 +38,7 @@ class Player:
 
     # Inventory
     inventory: Inventory = field(default_factory=Inventory)
-    equiped: str = None
+    _equiped: str = None
 
     # Currency
     balance: float = 0.0
@@ -46,6 +46,18 @@ class Player:
 
     # Booleans
     in_battle: bool = False
+
+    @property
+    def equiped(self) -> Any:
+        from data.items import TOOLS
+
+        if self._equiped not in self.inventory:
+            self._equiped = None
+
+        if self._equiped is None:
+            return
+
+        return TOOLS[self._equiped]
 
     def user(self, ctx: discord.ApplicationContext) -> discord.User | None:
         return ctx.bot.get_user(self.id)
@@ -56,7 +68,7 @@ class Player:
         if tool not in TOOLS:
             return
 
-        self.equiped = tool
+        self._equiped = tool
 
     async def attack(self, target: Any) -> None:
         # TODO

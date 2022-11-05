@@ -6,7 +6,7 @@ import discord
 from discord import ButtonStyle
 from discord.ui import View, Button, button
 
-from data.items import TOOLS, BLOCKS
+from data.items import BLOCKS
 from utils.classes import Block, Player, Tool, Inventory, Vector
 
 
@@ -176,7 +176,7 @@ class LevelMapView(View):
         level.player = LevelPlayer(
             x=random.randint(0, width - 1),
             y=random.randint(0, height - 1),
-            tool=TOOLS[player.equiped],
+            tool=player.equiped,
             profile=player,
         )
 

@@ -1,11 +1,11 @@
-from utils.classes import Tool, MiningLevel
+from utils.classes import Tool, MiningLevel, Tags
 
 TOOLS = {
     "picaretadepedra": Tool(
         id="picaretadepedra",
         name="Picareta De Pedra",
         emoji=":stone_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         buying=300.0,
         durability=100,
         mining_level=MiningLevel.STONE_PICKAXE,
@@ -14,7 +14,7 @@ TOOLS = {
         id="picaretadeferro",
         name="Picareta De Ferro",
         emoji=":iron_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=200,
         crafting={
             "picaretadepedra": 1,
@@ -28,7 +28,7 @@ TOOLS = {
         id="picaretadeouro",
         name="Picareta De Ouro",
         emoji=":golden_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=150,
         crafting={
             "picaretadeferro": 1,
@@ -42,7 +42,7 @@ TOOLS = {
         id="picaretadesafira",
         name="Picareta De Safira",
         emoji=":sapphire_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=350,
         crafting={
             "picaretadeouro": 1,
@@ -56,7 +56,7 @@ TOOLS = {
         id="picaretaderubi",
         name="Picareta De Rubi",
         emoji=":ruby_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=500,
         crafting={
             "picaretadesafira": 1,
@@ -70,7 +70,7 @@ TOOLS = {
         id="picaretadeesmeralda",
         name="Picareta De Esmeralda",
         emoji=":emerald_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=750,
         crafting={
             "picaretaderubi": 1,
@@ -84,7 +84,7 @@ TOOLS = {
         id="picaretadediamante",
         name="Picareta De Diamante",
         emoji=":diamond_pickaxe:",
-        tags=["pickaxe"],
+        tags=[Tags.PICKAXE],
         durability=1000,
         crafting={
             "picaretadeesmeralda": 1,

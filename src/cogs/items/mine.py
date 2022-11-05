@@ -1,11 +1,11 @@
 import discord
 from discord.ext import commands
-from discord.commands import Option, OptionChoice
+from discord.commands import Option
 
-from utils.consts import EMOJIS
-from data.items import BLOCKS, TOOLS, ITEMS
+from utils.constants import EMOJIS
+from data.items import BLOCKS, ITEMS
 
-from utils.classes import db
+from utils.classes import db, Tags
 from utils.messages import default_embed, warning
 from utils.views.LevelMapView import Level, LevelMapView
 
@@ -24,14 +24,13 @@ class Minerar(commands.Cog):
             description="Suporte para celulares",
         ) = False,
     ) -> None:
+
         WIDTH, HEIGHT = (12, 13) if mobile_support else (13, 13)
         MINING_BLOCKS = [block for block in BLOCKS.values() if "mining" in block.tags]
 
         with db.modify(ctx.author.id) as player:
 
-            equiped_tool = TOOLS[player.equiped] if player.equiped else None
-
-            if equiped_tool is None or "pickaxe" not in equiped_tool.tags:
+            if (player.equiped is None) or (Tags.PICKAXE not in player.equiped.tags):
                 await warning(
                     ctx, "Você não tem uma picareta equipada!", ephemeral=True
                 )

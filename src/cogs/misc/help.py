@@ -5,7 +5,7 @@ from discord.commands.core import SlashCommand
 
 from utils.messages import default_embed, warning
 
-from utils.consts.images import COMMAND_BLOCK
+from utils.constants.images import COMMAND_BLOCK
 
 
 class Ajuda(commands.Cog):

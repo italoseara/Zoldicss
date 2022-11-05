@@ -1,6 +1,6 @@
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
-from utils.consts.images import IMAGE_PATH, FONTS_PATH
+from utils.constants.images import IMAGE_PATH, FONTS_PATH
 
 
 def num_emoji(n: int) -> str:

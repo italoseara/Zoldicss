@@ -1,7 +1,6 @@
 # TODO
 
 * Mostrar item equipado no /info
-* Remover item equipado caso o item seja removido do inventário
 * Sistema de xp
 * Site local para customizar o bot
 * Comando `coletar`

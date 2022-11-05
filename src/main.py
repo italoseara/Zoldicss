@@ -7,7 +7,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from data.items import ITEMS, BLOCKS
-from utils.consts import EMOJIS
+from utils.constants import EMOJIS
 
 
 load_dotenv()
