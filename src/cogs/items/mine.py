@@ -38,7 +38,11 @@ class Minerar(commands.Cog):
                 return
 
             level = LevelMapView.create_map(
-                blocks=MINING_BLOCKS, player=player, width=WIDTH, height=HEIGHT
+                ctx=ctx,
+                blocks=MINING_BLOCKS,
+                player=player,
+                width=WIDTH,
+                height=HEIGHT,
             )
 
             # Create a message to show the map

@@ -42,6 +42,7 @@ def warning(
     user = user or ctx.author
 
     embed = default_embed(user, title=message)
+
     return ctx.respond(embed=embed, **kwargs)
 
 

@@ -65,11 +65,11 @@ class Player:
     def add_xp(self, amount: int) -> None:
         self.xp += amount
         xp_needed = xp_to_next_level(self.level) - self.xp
-        
+
         if xp_needed <= 0:
             self.level += 1
             self.xp = -xp_needed
-            
+
     async def equip(self, tool: str) -> None:
         from data.items import TOOLS
 
@@ -105,7 +105,10 @@ class Player:
         self.hunger.current = min(self.hunger.current, self.hunger.max)
 
     async def die(
-        self, ctx: discord.ApplicationContext, cause: str, by: Optional[Any] = None
+        self,
+        ctx: discord.ApplicationContext,
+        cause: str,
+        by: Optional[Any] = None,
     ) -> None:
 
         victm = self.user(ctx)
@@ -118,11 +121,12 @@ class Player:
                 message = f"{victm.name} se matou"
             case Death.ACCIDENT:
                 message = f"{victm.name} morreu por acidente"
+            case Death.STARVATION:
+                message = f"{victm.name} morreu de fome"
             case _:
                 message = f"{victm.name} morreu"
 
         await warning(ctx, message, user=victm)
 
         # Resets the player
-        new = Player(self.id, bank=self.bank)
-        self.__dict__ = new.__dict__
+        self.__dict__ = Player(self.id, bank=self.bank).__dict__

@@ -7,7 +7,7 @@ from discord import ButtonStyle
 from discord.ui import View, Button, button
 
 from data.items import BLOCKS
-from utils.classes import Block, Player, Tool, Inventory, Vector
+from utils.classes import Block, Player, Tool, Inventory, Vector, Death
 
 
 @dataclass
@@ -25,14 +25,14 @@ class Level:
     player: LevelPlayer = None
     map_: List[List[Block]] = None
 
-    def move(self, x: int, y: int) -> None:
+    async def move(self, x: int, y: int) -> None:
         new_pos = Vector(x=self.player.x + x, y=self.player.y + y)
 
         if not new_pos.inside(Vector(x=self.width, y=self.height)):
             return
 
         block = self.map_[new_pos.y][new_pos.x]
-        block.break_(self.player)
+        await block.break_(self.player)
 
         self.map_[self.player.y][self.player.x] = BLOCKS["background"]
         self.player.x += x
@@ -79,7 +79,14 @@ class LevelMapView(View):
         row=0,
     )
     async def move_up(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(0, -1)
+        await self.level.move(0, -1)
+
+        if self.level.player.profile.hunger.current == 0:
+            await self.level.player.profile.die(self.ctx, Death.STARVATION)
+            await interaction.response.edit_message(
+                embed=self.level_embed(self.level), view=None
+            )
+            return
 
         await interaction.response.edit_message(
             embed=self.level_embed(self.level), view=self
@@ -100,7 +107,14 @@ class LevelMapView(View):
         row=1,
     )
     async def move_left(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(-1, 0)
+        await self.level.move(-1, 0)
+
+        if self.level.player.profile.hunger.current == 0:
+            await self.level.player.profile.die(self.ctx, Death.STARVATION)
+            await interaction.response.edit_message(
+                embed=self.level_embed(self.level), view=None
+            )
+            return
 
         await interaction.response.edit_message(
             embed=self.level_embed(self.level), view=self
@@ -124,7 +138,14 @@ class LevelMapView(View):
     async def move_right(
         self, button: Button, interaction: discord.Interaction
     ) -> None:
-        self.level.move(1, 0)
+        await self.level.move(1, 0)
+
+        if self.level.player.profile.hunger.current == 0:
+            await self.level.player.profile.die(self.ctx, Death.STARVATION)
+            await interaction.response.edit_message(
+                embed=self.level_embed(self.level), view=None
+            )
+            return
 
         await interaction.response.edit_message(
             embed=self.level_embed(self.level), view=self
@@ -145,7 +166,14 @@ class LevelMapView(View):
         row=2,
     )
     async def move_down(self, button: Button, interaction: discord.Interaction) -> None:
-        self.level.move(0, 1)
+        await self.level.move(0, 1)
+
+        if self.level.player.profile.hunger.current == 0:
+            await self.level.player.profile.die(self.ctx, Death.STARVATION)
+            await interaction.response.edit_message(
+                embed=self.level_embed(self.level), view=None
+            )
+            return
 
         await interaction.response.edit_message(
             embed=self.level_embed(self.level), view=self
@@ -166,7 +194,13 @@ class LevelMapView(View):
         return cls(ctx, level, level_embed) if level.player.tool else None
 
     @staticmethod
-    def create_map(blocks: Block, player: Player, width: int, height: int) -> Level:
+    def create_map(
+        ctx: discord.ApplicationContext,
+        blocks: Block,
+        player: Player,
+        width: int,
+        height: int,
+    ) -> Level:
         # Create the level
         level = Level(width=width, height=height)
 

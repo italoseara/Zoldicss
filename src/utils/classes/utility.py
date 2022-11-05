@@ -24,8 +24,10 @@ class Stats:
         return f"{self.current} / {self.max}"
 
     def add(self, amount: int) -> None:
-        self.current -= max(0, amount)
+        self.current -= amount
 
+        if self.current < 0:
+            self.current = 0
 
 @dataclass
 class BattleStats:
