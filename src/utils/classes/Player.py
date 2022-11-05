@@ -6,8 +6,8 @@ from typing import Any, Optional
 import discord
 from dataclasses_json import dataclass_json
 
+from utils.misc import xp_to_next_level
 from utils.messages import warning
-
 from .utility import *
 
 
@@ -27,7 +27,7 @@ class Player:
 
     # Player stats
     level: int = 1
-    experience: int = 0
+    xp: int = 0
 
     health: Stats = field(default_factory=Stats)
     hunger: Stats = field(default_factory=Stats)
@@ -38,7 +38,7 @@ class Player:
 
     # Inventory
     inventory: Inventory = field(default_factory=Inventory)
-    _equiped: str = None
+    _equiped: str | None = None
 
     # Currency
     balance: float = 0.0
@@ -62,6 +62,14 @@ class Player:
     def user(self, ctx: discord.ApplicationContext) -> discord.User | None:
         return ctx.bot.get_user(self.id)
 
+    def add_xp(self, amount: int) -> None:
+        self.xp += amount
+        xp_needed = xp_to_next_level(self.level) - self.xp
+        
+        if xp_needed <= 0:
+            self.level += 1
+            self.xp = -xp_needed
+            
     async def equip(self, tool: str) -> None:
         from data.items import TOOLS
 

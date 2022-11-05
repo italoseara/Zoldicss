@@ -64,4 +64,4 @@ def draw_number(image, number: int) -> BytesIO:
 
 def xp_to_next_level(current_level: int) -> int:
     """Returns the amount of xp needed to reach the next level"""
-    return 500 * (current_level**2) + 500 * current_level
+    return 100 * (current_level**2) + 100 * current_level

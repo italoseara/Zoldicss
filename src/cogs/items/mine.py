@@ -6,6 +6,7 @@ from utils.constants import EMOJIS
 from data.items import BLOCKS, ITEMS
 
 from utils.classes import db, Tags
+from utils.misc import xp_to_next_level
 from utils.messages import default_embed, warning
 from utils.views.LevelMapView import Level, LevelMapView
 
@@ -55,7 +56,7 @@ class Minerar(commands.Cog):
                         f"💰 **Saldo:** ${player.balance:.2f}\n"
                         + f"❤️ **Vida:** {player.health}\n"
                         + f"🍗 **Fome:** {player.hunger}\n"
-                        + f"{EMOJIS['xp']} **Experiência:** {player.experience} / {0}"
+                        + f"{EMOJIS['xp']} **Experiência:** {player.xp} / {xp_to_next_level(player.level)}"
                     ),
                     inline=True,
                 )

@@ -23,6 +23,9 @@ class Stats:
     def __str__(self) -> str:
         return f"{self.current} / {self.max}"
 
+    def add(self, amount: int) -> None:
+        self.current -= max(0, amount)
+
 
 @dataclass
 class BattleStats:

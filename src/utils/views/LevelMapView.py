@@ -1,5 +1,5 @@
 import random
-from typing import Self, Callable
+from typing import Self, Callable, List
 from dataclasses import dataclass, field
 
 import discord
@@ -23,7 +23,7 @@ class Level:
     height: int
 
     player: LevelPlayer = None
-    map_: list = None
+    map_: List[List[Block]] = None
 
     def move(self, x: int, y: int) -> None:
         new_pos = Vector(x=self.player.x + x, y=self.player.y + y)
@@ -32,9 +32,7 @@ class Level:
             return
 
         block = self.map_[new_pos.y][new_pos.x]
-        if block.drop and self.player.tool.mining_level >= block.mining_level:
-            self.player.collected.add(block.drop.id)
-            self.player.profile.inventory.add(block.drop.id)
+        block.break_(self.player)
 
         self.map_[self.player.y][self.player.x] = BLOCKS["background"]
         self.player.x += x

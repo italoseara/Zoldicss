@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands
 from discord.commands import Option
 
-from utils.misc import xp_bar
 from utils.classes import db
 from utils.messages import default_embed
+from utils.misc import xp_bar, xp_to_next_level
 
 from utils.constants.emojis import EMOJIS
 
@@ -32,7 +32,7 @@ class Info(commands.Cog):
             embed.add_field(
                 name="**Combate:**",
                 value=(
-                    f"{EMOJIS['xp']} **Experiência:** {player.experience} / {0}\n"
+                    f"{EMOJIS['xp']} **Experiência:** {player.xp} / {xp_to_next_level(player.level)}\n"
                     + f"⚔️ **Ataque:** {player.damage}\n"
                     + f"🛡️ **Defesa:** {player.defense}"
                 ),
@@ -50,7 +50,7 @@ class Info(commands.Cog):
             )
 
             xp_img = discord.File(
-                xp_bar(player.experience / 1000, player.level),
+                xp_bar(player.xp / 1000, player.level),
                 filename=f"xp_bar.png",
             )
             embed.set_image(url=f"attachment://xp_bar.png")

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import discord
 import json
 
 from typing import Dict
@@ -42,7 +43,7 @@ class Database:
 
                 self.players[player.id] = player
 
-    def modify(self, user_id: int) -> PlayerAccess:
+    def modify(self, user_id) -> PlayerAccess:
         return PlayerAccess(database=self, player=self.get_player(user_id))
 
     def update(self, user: Player) -> None:
