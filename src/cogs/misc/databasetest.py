@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
-from database import db
 
-from database import User
+from database import db
+from user import User
 
 class DatabaseTest(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
