@@ -1,2 +1,0 @@
-EMOJIS = {}
-BLOCKS_EMOJIS = {}

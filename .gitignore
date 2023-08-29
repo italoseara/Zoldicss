@@ -156,3 +156,4 @@ cython_debug/
 
 # Player Data
 src/data/players/*.json
+*.db
