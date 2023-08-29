@@ -1,4 +1,5 @@
 import aiosqlite
+from pathlib import Path
 from dataclasses import dataclass
 
 from settings import *
@@ -20,6 +21,14 @@ class Database:
 
     async def init(self) -> None:
         """Initialize the database"""
+
+        file_path = Path(self.path)
+        if not file_path.parent.exists():
+            file_path.parent.mkdir()
+
+        if not file_path.exists():
+            file_path.touch()
+        
         async with aiosqlite.connect(self.path) as db:
             async with db.cursor() as cursor:
                 await cursor.execute(*User.create())
