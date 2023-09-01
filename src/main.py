@@ -1,11 +1,12 @@
 import re
 from pathlib import Path
-from datetime import datetime
+from pprint import pformat
 
 from discord.ext import commands
 
 from settings import *
 from database import db
+from util.console import console
 
 
 class Zoldicss(commands.Bot):
@@ -18,42 +19,35 @@ class Zoldicss(commands.Bot):
 
         self.load_cogs()
 
-    def log(self, message: str) -> None:
-        date = datetime.now().strftime("%d-%m-%Y")
-        time = datetime.now().strftime("%H:%M:%S")
-
-        print(f"[{time}] - {message}")
-
-        if not Path("logs").exists():
-            Path("logs").mkdir()
-
-        with open(f"logs/{date}.log", "a") as log_file:
-            log_file.write(f"[{time}] - {message}\n")
-
     def load_cogs(self) -> None:
         # Load all cogs from the cogs directory
         for extension_path in Path("src/cogs").glob("**/*.py"):
             if not extension_path.parts[-1].startswith("_"):
                 extension_name = re.sub(r"^(.+)\.py$", r"\1", str.join(".", list(extension_path.parts[1:])))
 
-                self.log(f"Loading cog: {extension_name}")
+                console.log(f"Loading cog: {extension_name}")
                 self.load_extension(extension_name)
 
         self.remove_command("help")
 
     async def on_ready(self) -> None:
         await db.init()
-        self.log("Database initialized")
+        console.log("Database initialized")
         
         await self.change_presence(activity=DISCORD_PRESENCE)
-        self.log(f"Logged in as {self.user}")
+        console.log(f"logged in as {self.user}")
 
     async def on_application_command(self, ctx: discord.ApplicationContext) -> None:
-        self.log(f"{ctx.author} used {ctx.command} in {ctx.guild} (#{ctx.channel})")
+        console.log(f"{ctx.author} executed: /{ctx.command}", details=f"Context:\n\n{pformat(vars(ctx))}")
 
 
-# Create the bot instance
-bot = Zoldicss()
+def main() -> None:
+    # Create the bot instance
+    bot = Zoldicss()
 
-# Run the bot
-bot.run(DISCORD_TOKEN)
+    # Run the bot
+    bot.run(DISCORD_TOKEN)
+
+
+if __name__ == "__main__":
+    main()
