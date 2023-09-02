@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 
-from database import db
-from user import User
+from database import User
+from util.autosqlite import session
 
 class DatabaseTest(commands.Cog):
     def __init__(self, bot: commands.Bot) -> None:
@@ -10,10 +10,12 @@ class DatabaseTest(commands.Cog):
 
     @commands.slash_command(name="database", description="Test")
     async def database(self, ctx: discord.ApplicationContext) -> None:
-        async with User(db, ctx.author.id, ctx.guild.id) as user:
-            user.teste.append({})
-            await ctx.respond(f"XP: {user.xp}\nLevel: {user.level}")
+        async with session as s:
+            user = await s.get(User, id=ctx.author.id, guild=ctx.guild.id)
+            user.inventory["test"] = 1
 
+            await s.update(user)
+            await ctx.respond(f"User: {user}")
 
 def setup(bot: commands.Bot) -> None:
     bot.add_cog(DatabaseTest(bot))

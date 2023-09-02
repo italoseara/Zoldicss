@@ -1,13 +1,15 @@
 import re
 from pathlib import Path
 from pprint import pformat
+from discord.commands import ApplicationContext
+from discord.errors import DiscordException
 
 from discord.ext import commands
 
 from settings import *
-from database import db
+from database import User
 from util.console import console
-
+from util.autosqlite import session
 
 class Zoldicss(commands.Bot):
     def __init__(self) -> None:
@@ -30,22 +32,30 @@ class Zoldicss(commands.Bot):
 
         self.remove_command("help")
 
-    async def on_ready(self) -> None:
-        await db.init()
-        console.log("Database initialized")
-        
+    async def on_ready(self) -> None:     
+        async with session as s:
+            await s.create(User)
+            await s.check(User)
+
+            console.log(f"Connected to database: {s.path}")
+           
         await self.change_presence(activity=DISCORD_PRESENCE)
-        console.log(f"logged in as {self.user}")
+        console.log(f"logged in as {self.user}",
+                    details=f"User tag: {self.user}\n"
+                            f"User ID: {self.user.id}\n"
+                            f"Guilds: {', '.join(map(str, self.guilds))}\n")
 
     async def on_application_command(self, ctx: discord.ApplicationContext) -> None:
-        console.log(f"{ctx.author} executed: /{ctx.command}", details=f"Context:\n\n{pformat(vars(ctx))}")
+        console.log(f"{ctx.author} executed: /{ctx.command}", 
+                    details=f"Application Context:\n\n{pformat(vars(ctx))}")
+
+    async def on_application_command_error(self, context: ApplicationContext, exception: DiscordException) -> None:
+        console.log(f"Error executing command: /{context.command}", 
+                    details=f"Exception:\n\n{pformat(vars(exception))}")
 
 
 def main() -> None:
-    # Create the bot instance
     bot = Zoldicss()
-
-    # Run the bot
     bot.run(DISCORD_TOKEN)
 
 

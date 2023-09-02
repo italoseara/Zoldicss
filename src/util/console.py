@@ -163,8 +163,7 @@ class Console:
         exit()
 
     def on_command(self, command: str) -> None:
-        self.log(f"Command executed: /{self.command}", 
-                 details=f"O comando /{self.command} foi executado")
+        self.log(f"Command executed: /{self.command}")
 
     def on_keypress(self, key: str) -> None:
         match self.state:
