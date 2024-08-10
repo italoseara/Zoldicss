@@ -108,7 +108,7 @@ export default class Bot extends Client {
 
   async registerCommands() {
     try {
-      if (config.devMode) {
+      if (config.debug) {
         const data = [];
 
         // Build the commands
