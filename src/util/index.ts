@@ -1,2 +1,2 @@
 export * from "./misc";
-export * from "./extension";
+export * from "./discord";
