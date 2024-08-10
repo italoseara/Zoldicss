@@ -28,7 +28,7 @@ export default class Bot extends Client {
     const commands = [];
     const commandGroups = [];
 
-    const files = getFiles(".").filter((file) => file.endsWith(".js"));
+    const files = getFiles(__dirname).filter((file) => file.endsWith(".js"));
 
     for (const path of files) {
       const exported: any[] = Object.values(require(path));

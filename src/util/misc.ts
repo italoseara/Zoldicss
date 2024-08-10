@@ -22,7 +22,6 @@ export function getFiles(dir: string): string[] {
     }
   };
 
-  getFilesRecursive(path.join(__dirname, dir));
+  getFilesRecursive(dir);
   return files;
 }
-
