@@ -28,14 +28,14 @@ export default class Bot extends Client {
     const commands = [];
     const commandGroups = [];
 
-    const files = getFiles(__dirname).filter((file) => file.endsWith(".js"));
+    const files = getFiles(__dirname).filter((file) => file.endsWith(".ts"));
 
     for (const path of files) {
       const exported: any[] = Object.values(require(path));
       if (!exported) continue;
 
       for (const module of exported) {
-        if (module.prototype instanceof View) views.push(module);
+        if (module instanceof View) views.push(module);
         else if (module.prototype instanceof Event) events.push(module);
         else if (module.prototype instanceof SlashCommand) commands.push(module);
         else if (module instanceof CommandGroup) commandGroups.push(module);
