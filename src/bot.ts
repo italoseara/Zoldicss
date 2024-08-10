@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import * as config from "@/config/config.json";
+import * as config from "config.json";
 import { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder } from "discord.js";
 import { SlashCommandInteraction, getFiles, CommandGroup, SlashCommand, View, Event } from "@/util";
 
