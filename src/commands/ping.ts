@@ -1,5 +1,4 @@
-import { SlashCommand, command } from "@/core";
-import { SlashCommandInteraction } from "@/utils";
+import { SlashCommand, command, SlashCommandInteraction } from "@/util";
 
 @command({
   name: "ping",

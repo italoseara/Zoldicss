@@ -1,5 +1,5 @@
 import { ActivityType, Events } from "discord.js";
-import { event, Event } from "@/core";
+import { event, Event } from "@/util";
 import Bot from "@/bot";
 
 @event({

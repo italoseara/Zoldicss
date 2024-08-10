@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import {
   CommandInteraction,
-  AutocompleteInteraction,
   ButtonBuilder,
   ActionRowBuilder,
   ButtonStyle,

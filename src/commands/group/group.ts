@@ -1,5 +1,5 @@
 import { CommandInteraction } from "discord.js";
-import { CommandGroup, SlashCommand } from "@/core";
+import { CommandGroup, SlashCommand } from "@/util";
 import { TestView, Test2View } from "./test";
 
 const group = new CommandGroup({ name: "group", description: "Example group" });

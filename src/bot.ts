@@ -1,8 +1,7 @@
 import "reflect-metadata";
 import * as config from "@/config/config.json";
-import { SlashCommandInteraction, getFiles } from "@/utils";
-import { CommandGroup, SlashCommand, View, Event } from "@/core";
 import { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder } from "discord.js";
+import { SlashCommandInteraction, getFiles, CommandGroup, SlashCommand, View, Event } from "@/util";
 
 export default class Bot extends Client {
   token: string;

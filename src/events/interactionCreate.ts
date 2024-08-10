@@ -1,11 +1,5 @@
-import {
-  BaseInteraction,
-  ButtonInteraction,
-  Events,
-  StringSelectMenuInteraction,
-} from "discord.js";
-import { SlashCommandInteraction } from "@/utils";
-import { event, Event } from "@/core";
+import { ButtonInteraction, Events, StringSelectMenuInteraction } from "discord.js";
+import { event, Event, SlashCommandInteraction } from "@/util";
 import Bot from "@/bot";
 
 @event({ name: Events.InteractionCreate })

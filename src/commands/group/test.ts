@@ -1,5 +1,5 @@
-import { button, select, View } from "@/core";
 import { StringSelectMenuInteraction, ButtonStyle, ButtonInteraction } from "discord.js";
+import { button, select, View } from "@/util";
 
 export class TestView extends View {
   @select({
