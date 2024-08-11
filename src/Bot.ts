@@ -1,13 +1,21 @@
 import "reflect-metadata";
+import {
+  ChatInputCommandInteraction,
+  Client,
+  GatewayIntentBits,
+  REST,
+  Routes,
+  SlashCommandBuilder,
+} from "discord.js";
+import { getFiles, CommandGroup, SlashCommand, View, Event } from "@/util";
 import * as config from "config.json";
-import { Client, GatewayIntentBits, REST, Routes, SlashCommandBuilder } from "discord.js";
-import { SlashCommandInteraction, getFiles, CommandGroup, SlashCommand, View, Event } from "@/util";
 
 export default class Bot extends Client {
   token: string;
-  commands: Map<string, new () => SlashCommand> = new Map();
-  commandGroups: Map<string, CommandGroup> = new Map();
-  components: Map<string, Function> = new Map();
+
+  private commands: Map<string, new () => SlashCommand> = new Map();
+  private commandGroups: Map<string, CommandGroup> = new Map();
+  private components: Map<string, Function> = new Map();
 
   constructor() {
     super({
@@ -35,7 +43,7 @@ export default class Bot extends Client {
       if (!exported) continue;
 
       for (const module of exported) {
-        if (module instanceof View) views.push(module);
+        if (module.prototype instanceof View) views.push(module);
         else if (module.prototype instanceof Event) events.push(module);
         else if (module.prototype instanceof SlashCommand) commands.push(module);
         else if (module instanceof CommandGroup) commandGroups.push(module);
@@ -66,6 +74,7 @@ export default class Bot extends Client {
       }
     }
 
+    if (views.length === 0) console.log("🔴 No components found");
     console.log();
   }
 
@@ -81,6 +90,7 @@ export default class Bot extends Client {
       console.log(`🟢 Loaded event: ${meta.name}`);
     }
 
+    if (events.length === 0) console.log("🔴 No events found");
     console.log();
   }
 
@@ -103,6 +113,7 @@ export default class Bot extends Client {
     }
 
     await this.registerCommands();
+    if (commands.length === 0 && commandGroups.length === 0) console.log("🔴 No commands found");
     console.log();
   }
 
@@ -182,7 +193,7 @@ export default class Bot extends Client {
     }
   }
 
-  getCommand(interaction: SlashCommandInteraction) {
+  getCommand(interaction: ChatInputCommandInteraction) {
     const { commandName, options } = interaction;
     const subcommand = options.getSubcommand(false);
 
@@ -192,6 +203,10 @@ export default class Bot extends Client {
     }
 
     return this.commands.get(commandName);
+  }
+
+  getComponent(customId: string) {
+    return this.components.get(customId);
   }
 
   async start(token: string) {

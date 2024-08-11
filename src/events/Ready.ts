@@ -1,6 +1,6 @@
 import { ActivityType, Events } from "discord.js";
 import { event, Event } from "@/util";
-import Bot from "@/bot";
+import Bot from "@/Bot";
 
 @event({
   name: Events.ClientReady,

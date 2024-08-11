@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import {
-  CommandInteraction,
+  ChatInputCommandInteraction,
   ButtonBuilder,
   ActionRowBuilder,
   ButtonStyle,
@@ -134,7 +134,7 @@ export class CommandGroup {
 }
 
 export abstract class SlashCommand {
-  abstract execute(interaction: CommandInteraction): Promise<void>;
+  abstract execute(interaction: ChatInputCommandInteraction): Promise<void>;
 }
 
 export abstract class Event {

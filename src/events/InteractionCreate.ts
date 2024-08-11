@@ -1,10 +1,15 @@
-import { ButtonInteraction, Events, StringSelectMenuInteraction } from "discord.js";
-import { event, Event, SlashCommandInteraction } from "@/util";
-import Bot from "@/bot";
+import {
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  Events,
+  StringSelectMenuInteraction,
+} from "discord.js";
+import { event, Event } from "@/util";
+import Bot from "@/Bot";
 
 @event({ name: Events.InteractionCreate })
 class InteractionCreate extends Event {
-  async handleSlashCommand(interaction: SlashCommandInteraction) {
+  async handleSlashCommand(interaction: ChatInputCommandInteraction) {
     const bot = interaction.client as Bot;
     const { commandName, user, options } = interaction;
     const subcommand = options.getSubcommand(false);
@@ -40,7 +45,7 @@ class InteractionCreate extends Event {
   async handleComponent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
     const bot = interaction.client as Bot;
     const { user, customId } = interaction;
-    const callback = bot.components.get(customId);
+    const callback = bot.getComponent(customId);
     if (!callback) {
       console.error("🔴 Component callback not found:", customId);
       interaction.reply({
