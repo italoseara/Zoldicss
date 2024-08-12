@@ -1,10 +1,18 @@
 {
-  "events": {
-    "welcome": {
-      "title": "Bem-vindo, {user}! 👋",
-      "description": "Use </help:1272373582613184614> para ver todos os comandos disponíveis.",
-      "footer": "Em desenvolvimento..."
-    }
+  "activities": [
+    "🔧 Em desenvolvimento...",
+    "💻 Programador: @ita1o",
+    "🎮 Game Designer: @fabriciodamoita",
+    "🚀 Em breve novidades!"
+  ],
+  "welcome": {
+    "title": "Bem-vindo, {user}! 🎉",
+    "description": [
+      "Antes de começar, use </help:1272373582613184614> para ver todos os comandos disponíveis.",
+      "",
+      "-# Caso encontre algum erro, por favor, reporte para <@272372759617732610>."
+    ],
+    "thumbnail": "https://raw.githubusercontent.com/italoseara/italoseara/main/imgs/waving.gif"
   },
   "commands": {
     "ping": "🏓 Pong! `{latency}ms`"

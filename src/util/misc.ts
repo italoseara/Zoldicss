@@ -21,9 +21,9 @@ export function getFiles(dir: string): string[] {
   return files;
 }
 
-export function replace(
+export function message(
   message: string | Record<string, any>,
-  placeholders: Record<string, any>
+  placeholders: Record<string, any> = {}
 ): string {
   if (typeof message === "object") {
     message = message.join("\n");

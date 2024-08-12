@@ -1,6 +1,7 @@
 import { ActivityType, Events } from "discord.js";
 import { event, Event } from "@/util";
 import Bot from "@/Bot";
+import * as messages from "messages.json";
 
 @event({
   name: Events.ClientReady,
@@ -12,8 +13,11 @@ class Ready extends Event {
     console.log(`🚀 Logged in as ${bot.user.tag}`);
     console.log();
 
-    // Change the bot's status
-    bot.user.setActivity("Em desenvolvimento...", { type: ActivityType.Custom });
+    let i = 0;
+    setInterval(() => {
+      bot.user.setActivity(messages.activities[i], { type: ActivityType.Custom });
+      i = ++i % messages.activities.length;
+    }, 10000);
   }
 }
 

@@ -3,7 +3,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 
 @command({
   name: "help",
-  description: "📚 Mostra uma lista de comandos do bot",
+  description: "📚 Lista de comandos disponíveis",
 })
 class Help extends SlashCommand {
   async execute(interaction: ChatInputCommandInteraction) {

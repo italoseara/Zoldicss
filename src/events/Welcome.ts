@@ -1,14 +1,20 @@
-import { ChatInputCommandInteraction, Colors, EmbedBuilder, Events } from "discord.js";
-import { Event, event, replace } from "@/util";
+import {
+  BaseInteraction,
+  ChatInputCommandInteraction,
+  Colors,
+  EmbedBuilder,
+  Events,
+} from "discord.js";
+import { Event, event, message } from "@/util";
 import { Player } from "@/database";
 import * as messages from "messages.json";
 
 @event({ name: Events.InteractionCreate })
 class Welcome extends Event {
-  async execute(interaction: any) {
+  async execute(interaction: BaseInteraction) {
     if (!interaction.isChatInputCommand()) return;
 
-    const { user, client } = interaction as ChatInputCommandInteraction;
+    const { user } = interaction as ChatInputCommandInteraction;
     const player = await Player.findOne({ where: { discordId: user.id } });
     if (player) return; // Player already exists
 
@@ -17,11 +23,10 @@ class Welcome extends Event {
       embeds: [
         new EmbedBuilder()
           .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL() })
-          .setTitle(replace(messages.events.welcome.title, { user: user.displayName }))
-          .setDescription(messages.events.welcome.description)
-          .setColor(Colors.Green)
-          .setFooter({ text: messages.events.welcome.footer })
-          .setThumbnail(client.user.displayAvatarURL()),
+          .setTitle(message(messages.welcome.title, { user: user.displayName }))
+          .setDescription(message(messages.welcome.description))
+          .setThumbnail(messages.welcome.thumbnail)
+          .setColor(Colors.Green),
       ],
     });
   }

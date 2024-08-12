@@ -1,4 +1,4 @@
-import { SlashCommand, command, replace } from "@/util";
+import { SlashCommand, command, message } from "@/util";
 import { ChatInputCommandInteraction } from "discord.js";
 import * as messages from "messages.json";
 
@@ -11,7 +11,7 @@ class Ping extends SlashCommand {
     const latency = Date.now() - interaction.createdAt.getTime();
 
     await interaction.reply({
-      content: replace(messages.commands.ping, { latency }),
+      content: message(messages.commands.ping, { latency }),
       ephemeral: true,
     });
   }

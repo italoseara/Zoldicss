@@ -65,7 +65,7 @@ export default class Bot extends Client {
         const { customId, execute, type } = component;
 
         if (this.components.has(customId)) {
-          console.log(`🔴 Skipping duplicate component: ${customId} (${type})`);
+          console.log(`🟠 Skipping duplicate component: ${customId} (${type})`);
           continue;
         }
 
@@ -74,7 +74,7 @@ export default class Bot extends Client {
       }
     }
 
-    if (views.length === 0) console.log("🔴 No components found");
+    if (views.length === 0) console.log("🟠 No components found");
     console.log();
   }
 
@@ -90,7 +90,7 @@ export default class Bot extends Client {
       console.log(`🟢 Loaded event: ${EventClass.name}`);
     }
 
-    if (events.length === 0) console.log("🔴 No events found");
+    if (events.length === 0) console.log("🟠 No events found");
     console.log();
   }
 
@@ -113,7 +113,7 @@ export default class Bot extends Client {
     }
 
     await this.registerCommands();
-    if (commands.length === 0 && commandGroups.length === 0) console.log("🔴 No commands found");
+    if (commands.length === 0 && commandGroups.length === 0) console.log("🟠 No commands found");
     console.log();
   }
 
