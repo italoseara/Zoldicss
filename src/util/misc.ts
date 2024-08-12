@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
 
-// Get all files in a directory (recursively)
 export function getFiles(dir: string): string[] {
   const files: string[] = [];
 
@@ -20,4 +19,17 @@ export function getFiles(dir: string): string[] {
 
   getFilesRecursive(dir);
   return files;
+}
+
+export function replace(
+  message: string | Record<string, any>,
+  placeholders: Record<string, any>
+): string {
+  if (typeof message === "object") {
+    message = message.join("\n");
+  }
+
+  return message.replace(/{([^}]+)}/g, (_: any, key: string | number) =>
+    placeholders[key].toString()
+  );
 }

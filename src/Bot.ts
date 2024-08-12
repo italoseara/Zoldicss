@@ -13,9 +13,9 @@ import * as config from "config.json";
 export default class Bot extends Client {
   token: string;
 
-  private commands: Map<string, new () => SlashCommand> = new Map();
-  private commandGroups: Map<string, CommandGroup> = new Map();
-  private components: Map<string, Function> = new Map();
+  commands: Map<string, new () => SlashCommand> = new Map();
+  commandGroups: Map<string, CommandGroup> = new Map();
+  components: Map<string, Function> = new Map();
 
   constructor() {
     super({
@@ -87,7 +87,7 @@ export default class Bot extends Client {
         const instance = new EventClass();
         instance.execute(...args);
       });
-      console.log(`🟢 Loaded event: ${meta.name}`);
+      console.log(`🟢 Loaded event: ${EventClass.name}`);
     }
 
     if (events.length === 0) console.log("🔴 No events found");
@@ -203,10 +203,6 @@ export default class Bot extends Client {
     }
 
     return this.commands.get(commandName);
-  }
-
-  getComponent(customId: string) {
-    return this.components.get(customId);
   }
 
   async start(token: string) {

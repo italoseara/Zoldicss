@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import UserEntity from "./entities/UserEntity";
+import Player from "./entities/Player";
 
 class DatabaseManager {
   static connection: DataSource;
@@ -14,11 +14,17 @@ class DatabaseManager {
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [UserEntity],
+      entities: [Player],
       synchronize: true,
     });
 
-    await this.connection.initialize();
+    try {
+      await this.connection.initialize();
+    } catch (error: any) {
+      console.error("❌ Failed to connect to the database");
+      console.error(error);
+      process.exit(1);
+    }
 
     console.log(`📁 Connected to '${process.env.DATABASE_NAME}' database`);
     console.log();

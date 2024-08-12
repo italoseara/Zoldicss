@@ -1,0 +1,12 @@
+{
+  "events": {
+    "welcome": {
+      "title": "Bem-vindo, {user}! 👋",
+      "description": "Use </help:1272373582613184614> para ver todos os comandos disponíveis.",
+      "footer": "Em desenvolvimento..."
+    }
+  },
+  "commands": {
+    "ping": "🏓 Pong! `{latency}ms`"
+  }
+}

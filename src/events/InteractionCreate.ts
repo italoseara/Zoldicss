@@ -6,6 +6,7 @@ import {
 } from "discord.js";
 import { event, Event } from "@/util";
 import Bot from "@/Bot";
+import { Player } from "@/database";
 
 @event({ name: Events.InteractionCreate })
 class InteractionCreate extends Event {
@@ -45,7 +46,7 @@ class InteractionCreate extends Event {
   async handleComponent(interaction: ButtonInteraction | StringSelectMenuInteraction) {
     const bot = interaction.client as Bot;
     const { user, customId } = interaction;
-    const callback = bot.getComponent(customId);
+    const callback = bot.components.get(customId);
     if (!callback) {
       console.error("🔴 Component callback not found:", customId);
       interaction.reply({
@@ -60,6 +61,9 @@ class InteractionCreate extends Event {
   }
 
   async execute(interaction: any) {
+    const player = await Player.findOne({ where: { discordId: interaction.user.id } });
+    if (!player) return; // Player already exists
+
     if (interaction.isChatInputCommand()) {
       await this.handleSlashCommand(interaction);
     } else if (interaction.isButton() || interaction.isStringSelectMenu()) {

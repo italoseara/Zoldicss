@@ -1,4 +1,4 @@
 import DatabaseManager from "./DatabaseManager";
-import User from "./entities/UserEntity"
+import Player from "./entities/Player";
 
-export { DatabaseManager, User };
+export { DatabaseManager, Player };
